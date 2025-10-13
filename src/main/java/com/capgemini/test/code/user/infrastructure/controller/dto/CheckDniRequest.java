@@ -1,4 +1,4 @@
-package com.capgemini.test.code.clients;
+package com.capgemini.test.code.user.infrastructure.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

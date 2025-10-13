@@ -37,7 +37,7 @@
   },
   {
     "httpRequest": {
-      "method": "PATCH",
+      "method": "POST",
       "path": "/check-dni",
       "body": {
         "type": "JSON",
@@ -61,7 +61,7 @@
   },
   {
     "httpRequest": {
-      "method": "PATCH",
+      "method": "POST",
       "path": "/check-dni",
       "body": {
         "type": "JSON"
