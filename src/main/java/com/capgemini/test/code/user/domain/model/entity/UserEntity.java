@@ -1,6 +1,7 @@
 package com.capgemini.test.code.user.domain.model.entity;
 
-import com.capgemini.test.code.user.domain.enums.RoleUser;
+import com.capgemini.test.code.user.application.exception.InvalidUserRoleException;
+import com.capgemini.test.code.user.domain.enums.UserRol;
 import com.capgemini.test.code.user.domain.model.valueobject.DniVo;
 import com.capgemini.test.code.user.domain.model.valueobject.EmailVo;
 
@@ -8,15 +9,19 @@ public class UserEntity {
     private String name;
     private EmailVo email;
     private String phone;
-    private RoleUser rol;
+    private UserRol rol;
     private DniVo dni;
     private RoomEntity room;
 
-    public UserEntity(String name, EmailVo email, String phone, RoleUser rol, DniVo dni) {
+    public UserEntity(String name, EmailVo email, String phone, String rol, DniVo dni) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.rol = rol;
+        try {
+            this.rol = UserRol.valueOf(rol);
+        } catch (IllegalArgumentException exception) {
+            throw new InvalidUserRoleException("El rol " + rol + " no es válido. Tiene que ser ADMIN o SUPERADMIN.");
+        }
         this.dni = dni;
     }
 
@@ -44,12 +49,8 @@ public class UserEntity {
         this.phone = phone;
     }
 
-    public RoleUser getRol() {
+    public UserRol getRol() {
         return rol;
-    }
-
-    public void setRol(RoleUser rol) {
-        this.rol = rol;
     }
 
     public DniVo getDni() {

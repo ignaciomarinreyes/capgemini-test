@@ -1,6 +1,5 @@
 package com.capgemini.test.code.user.infrastructure.service.mapper;
 
-import com.capgemini.test.code.user.domain.enums.RoleUser;
 import com.capgemini.test.code.user.domain.model.entity.UserEntity;
 import com.capgemini.test.code.user.domain.model.valueobject.DniVo;
 import com.capgemini.test.code.user.domain.model.valueobject.EmailVo;
@@ -17,7 +16,7 @@ public class UserInfrastructureServiceMapper {
             userRequest.name(),
             new EmailVo(userRequest.email()),
             userRequest.phone(),
-            RoleUser.valueOf(userRequest.rol().toUpperCase()),
+            userRequest.rol().toUpperCase(),
             new DniVo(userRequest.dni())
         );
     }

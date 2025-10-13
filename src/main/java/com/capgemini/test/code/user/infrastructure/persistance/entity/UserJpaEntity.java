@@ -1,6 +1,6 @@
 package com.capgemini.test.code.user.infrastructure.persistance.entity;
 
-import com.capgemini.test.code.user.domain.enums.RoleUser;
+import com.capgemini.test.code.user.domain.enums.UserRol;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,12 +17,12 @@ public class UserJpaEntity {
     String email;
     @Column(name =  "role")
     @Enumerated(EnumType.STRING)
-    RoleUser rol;
+    UserRol rol;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private RoomJpaEntity room;
 
-    public UserJpaEntity(String name, String email, RoleUser rol, RoomJpaEntity roomJpaEntity) {
+    public UserJpaEntity(String name, String email, UserRol rol, RoomJpaEntity roomJpaEntity) {
         this.name = name;
         this.email = email;
         this.rol = rol;
@@ -51,11 +51,11 @@ public class UserJpaEntity {
         this.email = email;
     }
 
-    public RoleUser getRol() {
+    public UserRol getRol() {
         return rol;
     }
 
-    public void setRol(RoleUser rol) {
+    public void setRol(UserRol rol) {
         this.rol = rol;
     }
 

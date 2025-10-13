@@ -1,6 +1,6 @@
 package com.capgemini.test.code.user.domain.enums;
 
-public enum RoleUser {
+public enum UserRol {
     ADMIN,
     SUPERADMIN
 }
