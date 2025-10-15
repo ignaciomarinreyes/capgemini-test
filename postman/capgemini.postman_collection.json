@@ -1,14 +1,16 @@
 {
 	"info": {
-		"_postman_id": "84b7591b-9e7d-413c-a383-ca81a4799134",
+		"_postman_id": "6122de89-a0ef-41b1-8d0f-e76aaab3b4c8",
 		"name": "capgemini",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13922868",
+		"_collection_link": "https://dark-meteor-683128.postman.co/workspace/My-Workspace~72b73edd-1033-4721-885f-6d23799e2844/collection/13922868-6122de89-a0ef-41b1-8d0f-e76aaab3b4c8?action=share&source=collection_link&creator=13922868"
 	},
 	"item": [
 		{
 			"name": "valid dni",
 			"request": {
-				"method": "PATCH",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -20,12 +22,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:1080/check-dni",
-					"protocol": "http",
+					"raw": "{{mockBaseUrl}}/check-dni",
 					"host": [
-						"localhost"
+						"{{mockBaseUrl}}"
 					],
-					"port": "1080",
 					"path": [
 						"check-dni"
 					]
@@ -36,7 +36,7 @@
 		{
 			"name": "invalid dni",
 			"request": {
-				"method": "PATCH",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -48,12 +48,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:1080/check-dni",
-					"protocol": "http",
+					"raw": "{{mockBaseUrl}}/check-dni",
 					"host": [
-						"localhost"
+						"{{mockBaseUrl}}"
 					],
-					"port": "1080",
 					"path": [
 						"check-dni"
 					]
@@ -76,12 +74,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:1080/email",
-					"protocol": "http",
+					"raw": "{{mockBaseUrl}}/email",
 					"host": [
-						"localhost"
+						"{{mockBaseUrl}}"
 					],
-					"port": "1080",
 					"path": [
 						"email"
 					]
@@ -104,18 +100,112 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:1080/check-dni",
-					"protocol": "http",
+					"raw": "{{mockBaseUrl}}/check-dni",
 					"host": [
-						"localhost"
+						"{{mockBaseUrl}}"
 					],
-					"port": "1080",
 					"path": [
 						"check-dni"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": " application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"jose\", \"email\": \"ignaciomarinreyes@gmail.com\", \"phone\": \"677998899\", \"rol\": \"admin\", \"dni\": \"54123926G\" }"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": " application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": ""
+		},
+		{
+			"value": ""
 		}
 	]
 }
