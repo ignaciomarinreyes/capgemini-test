@@ -1,0 +1,1 @@
+INSERT INTO public.rooms(id, name) VALUES(1, 'Sala 1');
