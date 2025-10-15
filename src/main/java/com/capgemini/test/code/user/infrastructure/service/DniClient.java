@@ -23,11 +23,10 @@ public class DniClient implements IDniPort {
     @Override
     public void validateDni(String dni) {
         CheckDniRequest checkDniRequest = userInfrastructureServiceMapper.toCheckDniRequest(dni);
-        ResponseEntity<CheckDniResponse> checkDniResponse = null;
         try {
-            checkDniResponse = dniClient.check(checkDniRequest);
+            dniClient.check(checkDniRequest);
         } catch (FeignException exception) {
-            throw new InvalidDniException("El DNI " + dni + " no es válido. No se puede crear el usuario");
+            throw new InvalidDniException(dni);
         }
     }
 }

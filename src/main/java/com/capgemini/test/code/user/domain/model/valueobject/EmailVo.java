@@ -17,7 +17,7 @@ public class EmailVo {
 
     public void validate(String email) {
         if (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
-            throw new InvalidEmailException("El email " + email + " no es válido. No se puede crear el usuario");
+            throw new InvalidEmailException(email);
         }
     }
 }

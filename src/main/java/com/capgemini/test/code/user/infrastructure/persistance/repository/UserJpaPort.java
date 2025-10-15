@@ -1,6 +1,7 @@
 package com.capgemini.test.code.user.infrastructure.persistance.repository;
 
 import com.capgemini.test.code.user.application.exception.EmailAlreadyExistsException;
+import com.capgemini.test.code.user.application.exception.UserNotFoundException;
 import com.capgemini.test.code.user.application.port.out.IUserPort;
 import com.capgemini.test.code.user.domain.model.entity.UserEntity;
 import com.capgemini.test.code.user.infrastructure.persistance.entity.UserJpaEntity;
@@ -26,8 +27,15 @@ public class UserJpaPort implements IUserPort {
         try {
             savedUserJpaEntity = userJpaRepository.save(userJpaEntity);
         } catch (DataIntegrityViolationException exception) {
-            throw new EmailAlreadyExistsException("El email " + userJpaEntity.getEmail() + " ya existe. No se puede crear el usuario");
+            throw new EmailAlreadyExistsException(userJpaEntity.getEmail());
         }
         return savedUserJpaEntity.getId();
+    }
+
+    @Override
+    public UserEntity getUser(Long id) {
+        return jpaUserEntityMapper.toUserEntity(userJpaRepository.findByIdAndRoomId(id, 1).orElseThrow(() ->
+                new UserNotFoundException(id)
+        ));
     }
 }

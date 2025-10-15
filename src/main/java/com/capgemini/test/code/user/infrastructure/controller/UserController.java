@@ -3,12 +3,11 @@ package com.capgemini.test.code.user.infrastructure.controller;
 import com.capgemini.test.code.user.infrastructure.controller.api.UserApi;
 import com.capgemini.test.code.user.infrastructure.controller.dto.UserIdResponse;
 import com.capgemini.test.code.user.infrastructure.controller.dto.UserRequest;
+import com.capgemini.test.code.user.infrastructure.controller.dto.UserResponse;
 import com.capgemini.test.code.user.infrastructure.service.UserInfrastructureService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -25,7 +24,16 @@ public class UserController implements UserApi {
     public ResponseEntity<UserIdResponse> createUser(@RequestBody UserRequest userRequest) {
         UserIdResponse userIdResponse = userInfrastructureService.createUser(userRequest);
         return ResponseEntity
-                .status(201)
+                .status(HttpStatus.CREATED)
                 .body(userIdResponse);
+    }
+
+    @GetMapping("/{id}")
+    @Override
+    public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
+        UserResponse userResponse = userInfrastructureService.getUser(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userResponse);
     }
 }

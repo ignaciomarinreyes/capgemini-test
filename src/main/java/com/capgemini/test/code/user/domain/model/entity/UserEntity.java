@@ -20,9 +20,13 @@ public class UserEntity {
         try {
             this.rol = UserRol.valueOf(rol);
         } catch (IllegalArgumentException exception) {
-            throw new InvalidUserRoleException("El rol " + rol + " no es válido. Tiene que ser ADMIN o SUPERADMIN.");
+            throw new InvalidUserRoleException(rol);
         }
         this.dni = dni;
+    }
+
+    public UserEntity(String name, EmailVo email, String rol) {
+        this(name, email, null, rol, null);
     }
 
     public String getName() {

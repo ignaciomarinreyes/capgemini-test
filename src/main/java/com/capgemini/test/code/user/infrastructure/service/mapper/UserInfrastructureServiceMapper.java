@@ -6,6 +6,7 @@ import com.capgemini.test.code.user.domain.model.valueobject.EmailVo;
 import com.capgemini.test.code.user.infrastructure.controller.dto.CheckDniRequest;
 import com.capgemini.test.code.user.infrastructure.controller.dto.UserIdResponse;
 import com.capgemini.test.code.user.infrastructure.controller.dto.UserRequest;
+import com.capgemini.test.code.user.infrastructure.controller.dto.UserResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,6 +31,15 @@ public class UserInfrastructureServiceMapper {
     public CheckDniRequest toCheckDniRequest(String dni) {
         return new CheckDniRequest(
                 dni
+        );
+    }
+
+    public UserResponse toUserResponse(UserEntity user) {
+        return new UserResponse(
+                user.getName(),
+                user.getEmail().getEmail(),
+                user.getPhone(),
+                user.getRol().name()
         );
     }
 }

@@ -13,7 +13,7 @@ public class DniVo {
 
     private void validate(String dni) {
         if (dni == null || !dni.matches("\\d{8}[A-Z]")) {
-            throw new InvalidDniException("El DNI " + dni + " no es válido. No se puede crear el usuario");
+            throw new InvalidDniException(dni);
         }
     }
 
