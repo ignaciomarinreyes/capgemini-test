@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NotificationResponse {
-    private String message;
-
+public class SmsNotificationRequest {
+    private String phone;
+    private String message = "usuario guardado";
 }

@@ -33,8 +33,8 @@ public class UserApplicationService implements ICreateUserUseCase, IGetUserUseCa
         RoomEntity roomEntity = roomRepository.getRoomById(1L);
         userEntity.setRoom(roomEntity);
         Long idCreatedUser = userRepository.createUser(userEntity);
-        if (userEntity.getRol() == UserRol.ADMIN) notificationPort.notifyByEmail();
-        else if (userEntity.getRol() == UserRol.SUPERADMIN) notificationPort.notifyBySms();
+        if (userEntity.getRol() == UserRol.ADMIN) notificationPort.notifyByEmail(userEntity.getEmail().getEmail());
+        else if (userEntity.getRol() == UserRol.SUPERADMIN) notificationPort.notifyBySms(userEntity.getPhone());
         else throw new InvalidUserRoleException(userEntity.getRol().name());
         return idCreatedUser;
     }
@@ -51,7 +51,7 @@ public class UserApplicationService implements ICreateUserUseCase, IGetUserUseCa
 
     @Override
     public UserEntity getUser(Long id) {
-        return userRepository.getUser(id);
+        return userRepository.getUser(id, 1);
     }
 }
 

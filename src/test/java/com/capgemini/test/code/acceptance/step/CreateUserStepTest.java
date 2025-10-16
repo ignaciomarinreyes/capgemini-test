@@ -1,6 +1,5 @@
 package com.capgemini.test.code.acceptance.step;
 
-import com.capgemini.test.code.user.infrastructure.persistance.repository.IUserJpaRepository;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -14,9 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,7 +32,7 @@ public class CreateUserStepTest {
     private MockMvc mockMvc;
 
     @Given("no existe un usuario")
-    public void no_existe_un_usuario() {
+    public void notExistsUser() {
         jsonRequest = String.format("""
             { 
                  "name": "%s",
@@ -47,14 +45,14 @@ public class CreateUserStepTest {
     }
 
     @When("creo un usuario")
-    public void creo_un_usuario() throws Exception {
+    public void createUser() throws Exception {
         result = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRequest));
     }
 
     @Then("el usuario debe existir en la base de datos")
-    public void el_usuario_debe_existir_en_la_base_de_datos() throws Exception {
+    public void userExistsDB() throws Exception {
         result.andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1));
     }

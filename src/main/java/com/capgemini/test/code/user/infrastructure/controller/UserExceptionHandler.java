@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice(basePackages = "com.capgemini.test.code.user")
 public class UserExceptionHandler {
 
-    @ExceptionHandler({EmailAlreadyExistsException.class})
+    @ExceptionHandler({EmailAlreadyExistsException.class, DniAlreadyExistsException.class, PhoneAlreadyExistsException.class})
     public ResponseEntity<ErrorResponse> handleAlreadyExistsException(RuntimeException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(String.valueOf(HttpStatus.CONFLICT.value()), exception.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 
     @ExceptionHandler({InvalidDniException.class, InvalidEmailException.class, InvalidNameException.class, InvalidUserRoleException.class})
     public ResponseEntity<ErrorResponse> handleInvalidException(RuntimeException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler({UserNotFoundException.class})
     public ResponseEntity<ErrorResponse> handleNotFoundException(RuntimeException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(String.valueOf(HttpStatus.NOT_FOUND.value()), exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 

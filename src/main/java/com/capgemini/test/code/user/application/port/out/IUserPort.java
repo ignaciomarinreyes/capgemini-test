@@ -6,5 +6,5 @@ public interface IUserPort {
 
     Long createUser(UserEntity userEntity);
 
-    UserEntity getUser(Long id);
+    UserEntity getUser(Long id, Integer idRoom);
 }

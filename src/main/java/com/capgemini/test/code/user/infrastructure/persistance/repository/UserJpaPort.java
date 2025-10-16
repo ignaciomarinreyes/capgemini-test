@@ -1,6 +1,8 @@
 package com.capgemini.test.code.user.infrastructure.persistance.repository;
 
+import com.capgemini.test.code.user.application.exception.DniAlreadyExistsException;
 import com.capgemini.test.code.user.application.exception.EmailAlreadyExistsException;
+import com.capgemini.test.code.user.application.exception.PhoneAlreadyExistsException;
 import com.capgemini.test.code.user.application.exception.UserNotFoundException;
 import com.capgemini.test.code.user.application.port.out.IUserPort;
 import com.capgemini.test.code.user.domain.model.entity.UserEntity;
@@ -27,14 +29,17 @@ public class UserJpaPort implements IUserPort {
         try {
             savedUserJpaEntity = userJpaRepository.save(userJpaEntity);
         } catch (DataIntegrityViolationException exception) {
-            throw new EmailAlreadyExistsException(userJpaEntity.getEmail());
+            if (exception.getMessage().contains("Key (dni)")) throw new DniAlreadyExistsException(userJpaEntity.getDni());
+            else if (exception.getMessage().contains("Key (email)")) throw new EmailAlreadyExistsException(userJpaEntity.getEmail());
+            else if (exception.getMessage().contains("Key (phone)")) throw new PhoneAlreadyExistsException(userJpaEntity.getPhone());
+            else throw exception;
         }
         return savedUserJpaEntity.getId();
     }
 
     @Override
-    public UserEntity getUser(Long id) {
-        return jpaUserEntityMapper.toUserEntity(userJpaRepository.findByIdAndRoomId(id, 1).orElseThrow(() ->
+    public UserEntity getUser(Long id, Integer idRoom) {
+        return jpaUserEntityMapper.toUserEntity(userJpaRepository.findByIdAndRoomId(id, idRoom).orElseThrow(() ->
                 new UserNotFoundException(id)
         ));
     }

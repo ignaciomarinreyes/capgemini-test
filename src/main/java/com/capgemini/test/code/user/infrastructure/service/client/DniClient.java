@@ -1,12 +1,10 @@
-package com.capgemini.test.code.user.infrastructure.service;
+package com.capgemini.test.code.user.infrastructure.service.client;
 
 import com.capgemini.test.code.user.application.exception.InvalidDniException;
 import com.capgemini.test.code.user.application.port.out.IDniPort;
 import com.capgemini.test.code.user.infrastructure.controller.dto.CheckDniRequest;
-import com.capgemini.test.code.user.infrastructure.controller.dto.CheckDniResponse;
 import com.capgemini.test.code.user.infrastructure.service.mapper.UserInfrastructureServiceMapper;
 import feign.FeignException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service

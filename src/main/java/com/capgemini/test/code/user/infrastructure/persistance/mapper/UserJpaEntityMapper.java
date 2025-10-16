@@ -1,10 +1,9 @@
 package com.capgemini.test.code.user.infrastructure.persistance.mapper;
 
-import com.capgemini.test.code.user.domain.model.entity.RoomEntity;
 import com.capgemini.test.code.user.domain.model.entity.UserEntity;
+import com.capgemini.test.code.user.domain.model.valueobject.DniVo;
 import com.capgemini.test.code.user.domain.model.valueobject.EmailVo;
 import com.capgemini.test.code.user.infrastructure.persistance.entity.UserJpaEntity;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,19 +16,25 @@ public class UserJpaEntityMapper {
     }
 
     public UserJpaEntity toJpaEntity(UserEntity userEntity) {
-        return new UserJpaEntity(
-             userEntity.getName(),
-             userEntity.getEmail().getEmail(),
-             userEntity.getRol(),
-             roomJpaEntityMapper.toJpaEntity(userEntity.getRoom())
-        );
+        return UserJpaEntity.builder()
+                .dni(userEntity.getDni().getDni())
+                .rol(userEntity.getRol())
+                .phone(userEntity.getPhone())
+                .name(userEntity.getName())
+                .room(roomJpaEntityMapper.toJpaEntity(userEntity.getRoom()))
+                .email(userEntity.getEmail().getEmail())
+                .build();
     }
 
     public UserEntity toUserEntity(UserJpaEntity userJpaEntity) {
         return new UserEntity(
+                userJpaEntity.getId(),
                 userJpaEntity.getName(),
                 new EmailVo(userJpaEntity.getEmail()),
-                userJpaEntity.getRol().name()
+                userJpaEntity.getPhone(),
+                userJpaEntity.getRol(),
+                new DniVo(userJpaEntity.getDni()),
+                roomJpaEntityMapper.toEntity(userJpaEntity.getRoom())
         );
     }
 }

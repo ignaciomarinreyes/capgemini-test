@@ -1,11 +1,11 @@
 package com.capgemini.test.code.user.domain.model.entity;
 
-import com.capgemini.test.code.user.application.exception.InvalidUserRoleException;
 import com.capgemini.test.code.user.domain.enums.UserRol;
 import com.capgemini.test.code.user.domain.model.valueobject.DniVo;
 import com.capgemini.test.code.user.domain.model.valueobject.EmailVo;
 
 public class UserEntity {
+    private Long id;
     private String name;
     private EmailVo email;
     private String phone;
@@ -13,20 +13,22 @@ public class UserEntity {
     private DniVo dni;
     private RoomEntity room;
 
-    public UserEntity(String name, EmailVo email, String phone, String rol, DniVo dni) {
+    public UserEntity(Long id, String name, EmailVo email, String phone, UserRol rol, DniVo dni, RoomEntity room) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
-        try {
-            this.rol = UserRol.valueOf(rol);
-        } catch (IllegalArgumentException exception) {
-            throw new InvalidUserRoleException(rol);
-        }
+        this.rol = rol;
         this.dni = dni;
+        this.room = room;
     }
 
-    public UserEntity(String name, EmailVo email, String rol) {
-        this(name, email, null, rol, null);
+    public UserEntity(String name, EmailVo email, String phone, UserRol rol, DniVo dni) {
+        this(null, name, email, phone, rol, dni, null);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -55,6 +57,10 @@ public class UserEntity {
 
     public UserRol getRol() {
         return rol;
+    }
+
+    public void setRol(UserRol rol) {
+        this.rol = rol;
     }
 
     public DniVo getDni() {

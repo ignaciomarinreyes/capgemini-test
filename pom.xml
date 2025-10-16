@@ -84,6 +84,11 @@
           <version>7.8.1</version>
           <scope>test</scope>
       </dependency>
+      <dependency>
+          <groupId>io.github.openfeign</groupId>
+          <artifactId>feign-okhttp</artifactId>
+          <version>12.3</version>
+      </dependency>
   </dependencies>
   <dependencyManagement>
     <dependencies>
@@ -98,10 +103,21 @@
   </dependencyManagement>
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+        <plugin>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>9.22.3</version>
+            <configuration>
+                <url>jdbc:postgresql://localhost:5432/users</url>
+                <user>user</user>
+                <password>password</password>
+                <cleanDisabled>true</cleanDisabled>
+            </configuration>
+        </plugin>
     </plugins>
   </build>
 

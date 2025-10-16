@@ -1,5 +1,6 @@
 package com.capgemini.test.code.user.infrastructure.persistance.repository;
 
+import com.capgemini.test.code.user.application.exception.RoomNotFoundException;
 import com.capgemini.test.code.user.application.port.out.IRoomPort;
 import com.capgemini.test.code.user.domain.model.entity.RoomEntity;
 import com.capgemini.test.code.user.infrastructure.persistance.mapper.RoomJpaEntityMapper;
@@ -19,7 +20,7 @@ public class RoomJpaPort implements IRoomPort {
     @Override
     public RoomEntity getRoomById(Long id) {
         return roomJpaEntityMapper.toEntity(roomJpaRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("fallo respositroio")
+                new RoomNotFoundException(id)
         ));
     }
 }

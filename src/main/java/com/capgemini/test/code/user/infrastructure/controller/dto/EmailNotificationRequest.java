@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NotificationRequest {
+public class EmailNotificationRequest {
+    private String email;
     private String message = "usuario guardado";
 }
