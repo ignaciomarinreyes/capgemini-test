@@ -124,7 +124,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"name\": \"jose\", \"email\": \"ignaciomarinreyes@gmail.com\", \"phone\": \"677998899\", \"rol\": \"admin\", \"dni\": \"54123926G\" }"
+					"raw": "{\r\n   \"name\":\"jose\",\r\n   \"email\":\"ignaciomarinreyes@gmail.com\",\r\n   \"phone\":\"627286422\",\r\n   \"rol\":\"admin\",\r\n   \"dni\":\"54123948G\"\r\n}"
 				},
 				"url": {
 					"raw": "{{baseUrl}}/users",
